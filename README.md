@@ -8,7 +8,7 @@ AgentMesh is a framework-agnostic control plane for deploying, scaling, coordina
 
 ## Why it matters
 
-The first agent is easy. The fiftieth is where everything breaks:
+The first agent is easy. The fifth is where everything starts to break:
 
 - prompts, tools, memory, and runtime config are packaged ad hoc
 - queueing, retries, and backpressure live in app code
@@ -89,10 +89,6 @@ YAML parsing, remote runtimes, autoscaling, and provider adapters are the next l
 - [docs/vision.md](/Users/jon/Documents/Playground/docs/vision.md): product thesis and positioning
 - [docs/architecture.md](/Users/jon/Documents/Playground/docs/architecture.md): system architecture overview
 - [docs/roadmap.md](/Users/jon/Documents/Playground/docs/roadmap.md): phased delivery plan
-
-## Brand direction
-
-`AgentMesh` keeps the infrastructure feel of the original concept without using `kube`. The naming gives us room for a product family like `meshctl`, mesh runtimes, a control plane, and eventually a hosted AgentMesh Cloud.
 
 ## License
 
