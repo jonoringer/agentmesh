@@ -35,8 +35,13 @@ python3 -m agentmesh.cli version
 python3 -m agentmesh.cli init agentpod support-router -o examples/local/support-router.json
 python3 -m agentmesh.cli apply examples/local/agentpod.json
 python3 -m agentmesh.cli apply examples/local/workflow.json
+python3 -m agentmesh.cli run workflow support-ticket-resolution
+python3 -m agentmesh.cli get runs
+python3 -m agentmesh.cli logs run support-ticket-resolution-0001
+python3 -m agentmesh.cli rerun workflow-run support-ticket-resolution-0001
 python3 -m agentmesh.cli get
 python3 -m agentmesh.cli describe support-router
+python3 -m agentmesh.cli describe support-ticket-resolution
 python3 -m agentmesh.cli logs support-router
 ```
 
@@ -55,8 +60,13 @@ meshctl init agentpod <name> [-o file]
 meshctl init workflow <name> [-o file]
 meshctl apply <file.json>
 meshctl get
+meshctl get runs [workflow-name]
+meshctl run workflow <name>
+meshctl rerun workflow-run <run-id>
 meshctl describe <name>
+meshctl describe run <run-id>
 meshctl logs <name>
+meshctl logs run <run-id>
 ```
 
 ## Core primitives

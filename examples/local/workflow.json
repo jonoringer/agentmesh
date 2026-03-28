@@ -13,11 +13,11 @@
       },
       {
         "name": "draft",
-        "agentRef": "resolution-drafter"
+        "agentRef": "support-router"
       },
       {
         "name": "approve",
-        "agentRef": "escalation-agent"
+        "agentRef": "support-router"
       }
     ]
   }

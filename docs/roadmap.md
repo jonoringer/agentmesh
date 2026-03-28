@@ -10,9 +10,18 @@
 
 - local runtime for `AgentPod`
 - `AgentSet` replica management
-- workflow execution engine with retries
-- CLI for deploy, status, logs, and describe
+- workflow execution engine with persisted run history
+- workflow rerun support from prior run ids
+- CLI for deploy, status, logs, describe, and run inspection
 - OpenTelemetry-based tracing
+
+## Current local alpha status
+
+- shipped: apply, get, describe, and logs for local resources
+- shipped: workflow execution with per-step run records
+- shipped: run history inspection through `get runs`, `describe run`, and `logs run`
+- shipped: workflow reruns through `rerun workflow-run <run-id>`
+- next: explicit DAG edges, checkpoint reruns, richer status conditions, and tracing export
 
 ## Phase 2: Public alpha
 
