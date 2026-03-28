@@ -1,0 +1,24 @@
+{
+  "apiVersion": "agentmesh.dev/v1alpha1",
+  "kind": "Workflow",
+  "metadata": {
+    "name": "support-ticket-resolution"
+  },
+  "spec": {
+    "entrypoint": "triage",
+    "steps": [
+      {
+        "name": "triage",
+        "agentRef": "support-router"
+      },
+      {
+        "name": "draft",
+        "agentRef": "resolution-drafter"
+      },
+      {
+        "name": "approve",
+        "agentRef": "escalation-agent"
+      }
+    ]
+  }
+}

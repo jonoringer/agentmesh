@@ -1,0 +1,42 @@
+{
+  "apiVersion": "agentmesh.dev/v1alpha1",
+  "kind": "AgentPod",
+  "metadata": {
+    "name": "support-router",
+    "labels": {
+      "app": "support-router",
+      "team": "support"
+    }
+  },
+  "spec": {
+    "runtime": {
+      "framework": "python",
+      "entrypoint": "./agents/support_router.py"
+    },
+    "model": {
+      "provider": "openai",
+      "name": "gpt-5.4",
+      "temperature": 0.2
+    },
+    "prompt": {
+      "inline": "Classify support issues and route them to the correct resolver."
+    },
+    "tools": [
+      {
+        "ref": "crm-api"
+      },
+      {
+        "ref": "billing-db"
+      }
+    ],
+    "memory": [
+      {
+        "ref": "customer-history"
+      }
+    ],
+    "resources": {
+      "maxConcurrency": 8,
+      "tokenBudgetPerMinute": 120000
+    }
+  }
+}

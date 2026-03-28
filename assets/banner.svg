@@ -1,0 +1,24 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#09111C"/>
+  <circle cx="172" cy="120" r="220" fill="#103251"/>
+  <circle cx="1034" cy="530" r="240" fill="#112E27"/>
+  <rect x="72" y="72" width="1056" height="486" rx="36" fill="url(#card)" stroke="rgba(244,241,232,0.16)"/>
+  <text x="120" y="210" fill="#F4F1E8" font-size="84" font-family="Avenir Next, Helvetica, Arial, sans-serif" font-weight="700">AgentMesh</text>
+  <text x="120" y="274" fill="#A7B9CB" font-size="30" font-family="Avenir Next, Helvetica, Arial, sans-serif">Open orchestration infrastructure for AI agents</text>
+  <path d="M800 184L930 116L1060 184V330L930 398L800 330V184Z" fill="#F4F1E8" fill-opacity="0.05" stroke="#F4F1E8" stroke-width="12"/>
+  <path d="M930 116V398" stroke="#F4F1E8" stroke-width="12"/>
+  <path d="M800 184L930 254L1060 184" stroke="#F4F1E8" stroke-width="12"/>
+  <circle cx="800" cy="184" r="24" fill="#FF7A59"/>
+  <circle cx="930" cy="116" r="24" fill="#27D3A2"/>
+  <circle cx="1060" cy="184" r="24" fill="#67B8FF"/>
+  <circle cx="930" cy="398" r="24" fill="#FFD166"/>
+  <text x="120" y="392" fill="#F4F1E8" font-size="28" font-family="Avenir Next, Helvetica, Arial, sans-serif">Package agents declaratively.</text>
+  <text x="120" y="438" fill="#F4F1E8" font-size="28" font-family="Avenir Next, Helvetica, Arial, sans-serif">Scale them with a control plane.</text>
+  <text x="120" y="484" fill="#F4F1E8" font-size="28" font-family="Avenir Next, Helvetica, Arial, sans-serif">Trace every prompt, tool, and handoff.</text>
+  <defs>
+    <linearGradient id="card" x1="128" y1="88" x2="1070" y2="560" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#10233D"/>
+      <stop offset="1" stop-color="#12261D"/>
+    </linearGradient>
+  </defs>
+</svg>
