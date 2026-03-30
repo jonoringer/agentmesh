@@ -43,3 +43,9 @@ spec:
 - Should `AgentSet` own the pod template inline or always reference an `AgentPod`?
 - How much scaling logic belongs in the core versus pluggable policy modules?
 - Should token budget be a first-class autoscaling signal from v1alpha1?
+
+## Local alpha behavior
+
+- `AgentSet` apply requests fail fast when `spec.template.ref` does not point to an applied `AgentPod`
+- the local runtime stores desired, current, and ready replica counts in status
+- replica counts can be changed manually with `scale agentset <name> --replicas <n>`

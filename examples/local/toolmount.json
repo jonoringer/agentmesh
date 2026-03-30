@@ -1,0 +1,17 @@
+{
+  "apiVersion": "agentmesh.dev/v1alpha1",
+  "kind": "ToolMount",
+  "metadata": {
+    "name": "ticket-api"
+  },
+  "spec": {
+    "type": "http",
+    "endpoint": "https://api.example.com/tickets",
+    "auth": {
+      "secretRef": "ticket-api-token"
+    },
+    "limits": {
+      "ratePerMinute": 600
+    }
+  }
+}

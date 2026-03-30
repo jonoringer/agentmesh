@@ -22,7 +22,10 @@ AgentMesh is the infrastructure layer beneath agent frameworks, not a replacemen
 
 - A runnable `meshctl` alpha CLI
 - A local control plane that persists applied resources under `.agentmesh/state.json`
-- JSON-based starter specs for `AgentPod` and `Workflow`
+- JSON-based starter specs for `AgentPod`, `Workflow`, `ToolMount`, and `MemoryVolume`
+- JSON-based starter specs for `AgentPod`, `AgentSet`, `Workflow`, `ToolMount`, and `MemoryVolume`
+- Workflow run history, reruns, and checkpoint reruns
+- Local `AgentSet` apply, describe, and scale flows
 - Product docs for the long-term platform direction
 - Brand assets for the repo and landing materials
 
@@ -33,12 +36,17 @@ Requires Python 3.9+.
 ```bash
 python3 -m agentmesh.cli version
 python3 -m agentmesh.cli init agentpod support-router -o examples/local/support-router.json
+python3 -m agentmesh.cli apply examples/local/toolmount.json
+python3 -m agentmesh.cli apply examples/local/memoryvolume.json
 python3 -m agentmesh.cli apply examples/local/agentpod.json
+python3 -m agentmesh.cli apply examples/local/agentset.json
 python3 -m agentmesh.cli apply examples/local/workflow.json
 python3 -m agentmesh.cli run workflow support-ticket-resolution
+python3 -m agentmesh.cli scale agentset support-router-set --replicas 3
 python3 -m agentmesh.cli get runs
 python3 -m agentmesh.cli logs run support-ticket-resolution-0001
 python3 -m agentmesh.cli rerun workflow-run support-ticket-resolution-0001
+python3 -m agentmesh.cli rerun workflow-run support-ticket-resolution-0001 --from-step approve
 python3 -m agentmesh.cli get
 python3 -m agentmesh.cli describe support-router
 python3 -m agentmesh.cli describe support-ticket-resolution
@@ -57,12 +65,17 @@ meshctl version
 ```text
 meshctl version
 meshctl init agentpod <name> [-o file]
+meshctl init agentset <name> [-o file]
 meshctl init workflow <name> [-o file]
+meshctl init toolmount <name> [-o file]
+meshctl init memoryvolume <name> [-o file]
 meshctl apply <file.json>
 meshctl get
 meshctl get runs [workflow-name]
 meshctl run workflow <name>
 meshctl rerun workflow-run <run-id>
+meshctl rerun workflow-run <run-id> --from-step <name>
+meshctl scale agentset <name> --replicas <n>
 meshctl describe <name>
 meshctl describe run <run-id>
 meshctl logs <name>
@@ -96,6 +109,9 @@ YAML parsing, remote runtimes, autoscaling, and provider adapters are the next l
 - [agentmesh/schema.py](/Users/jon/Documents/Playground/agentmesh/schema.py): resource models and scaffolds
 - [examples/local/agentpod.json](/Users/jon/Documents/Playground/examples/local/agentpod.json): starter `AgentPod`
 - [examples/local/workflow.json](/Users/jon/Documents/Playground/examples/local/workflow.json): starter `Workflow`
+- [examples/local/agentset.json](/Users/jon/Documents/Playground/examples/local/agentset.json): starter `AgentSet`
+- [examples/local/toolmount.json](/Users/jon/Documents/Playground/examples/local/toolmount.json): starter `ToolMount`
+- [examples/local/memoryvolume.json](/Users/jon/Documents/Playground/examples/local/memoryvolume.json): starter `MemoryVolume`
 - [docs/vision.md](/Users/jon/Documents/Playground/docs/vision.md): product thesis and positioning
 - [docs/architecture.md](/Users/jon/Documents/Playground/docs/architecture.md): system architecture overview
 - [docs/roadmap.md](/Users/jon/Documents/Playground/docs/roadmap.md): phased delivery plan

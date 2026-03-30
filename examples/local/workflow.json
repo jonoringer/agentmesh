@@ -9,7 +9,11 @@
     "steps": [
       {
         "name": "triage",
-        "agentRef": "support-router"
+        "agentRef": "support-router",
+        "onSuccess": [
+          "draft",
+          "approve"
+        ]
       },
       {
         "name": "draft",

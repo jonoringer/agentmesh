@@ -23,15 +23,12 @@
     },
     "tools": [
       {
-        "ref": "crm-api"
-      },
-      {
-        "ref": "billing-db"
+        "ref": "ticket-api"
       }
     ],
     "memory": [
       {
-        "ref": "customer-history"
+        "ref": "team-context"
       }
     ],
     "resources": {

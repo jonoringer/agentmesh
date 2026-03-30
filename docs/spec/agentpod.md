@@ -59,3 +59,8 @@ An `AgentPod` should expose status fields for:
 - current runtime target
 - last model error
 - observed token rate
+
+## Local alpha behavior
+
+- `AgentPod` apply requests fail fast when referenced `ToolMount` or `MemoryVolume` resources do not exist
+- the local runtime stores attached dependency refs in resource status for `describe`

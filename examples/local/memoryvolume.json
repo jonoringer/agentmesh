@@ -1,0 +1,18 @@
+{
+  "apiVersion": "agentmesh.dev/v1alpha1",
+  "kind": "MemoryVolume",
+  "metadata": {
+    "name": "team-context"
+  },
+  "spec": {
+    "class": "knowledge",
+    "backend": {
+      "type": "postgres-pgvector",
+      "connectionRef": "team-context-db"
+    },
+    "retention": {
+      "policy": "rolling",
+      "maxAgeDays": 90
+    }
+  }
+}

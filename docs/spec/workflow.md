@@ -43,3 +43,12 @@ spec:
 - step outputs are addressable and replayable
 - failed branches can be retried from checkpoints
 - shared workflow context is versioned
+
+## Local alpha behavior
+
+- `entrypoint` selects the first step to execute
+- `onSuccess` declares explicit successor steps for DAG-style fan-out
+- if `onSuccess` is omitted, the local runtime falls back to the next listed step for backwards compatibility
+- workflows fail validation when they reference unknown steps, contain unreachable steps, or introduce cycles
+- workflow admission also validates that every `agentRef` points to an applied `AgentPod`
+- reruns can restart from a checkpoint step with `rerun workflow-run <run-id> --from-step <name>`

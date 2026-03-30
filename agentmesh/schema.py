@@ -73,12 +73,62 @@ def scaffold_resource(kind: str, name: str) -> Resource:
                 {"name": "resolve", "agentRef": "responder"},
             ],
         }
+    elif normalized_kind == "agentset":
+        spec = {
+            "selector": {
+                "matchLabels": {
+                    "app": name,
+                }
+            },
+            "template": {
+                "ref": f"{name}-pod",
+            },
+            "replicas": {
+                "min": 2,
+                "max": 4,
+                "desired": 2,
+            },
+            "rollout": {
+                "strategy": "rolling",
+                "maxUnavailable": 1,
+            },
+        }
+    elif normalized_kind == "toolmount":
+        spec = {
+            "type": "http",
+            "endpoint": "https://api.example.com",
+            "auth": {
+                "secretRef": f"{name}-token",
+            },
+            "limits": {
+                "ratePerMinute": 600,
+            },
+        }
+    elif normalized_kind == "memoryvolume":
+        spec = {
+            "class": "knowledge",
+            "backend": {
+                "type": "postgres-pgvector",
+                "connectionRef": f"{name}-db",
+            },
+            "retention": {
+                "policy": "rolling",
+                "maxAgeDays": 90,
+            },
+        }
     else:
         raise ValueError(f"unsupported scaffold kind: {kind}")
 
+    kind_name_map = {
+        "agentpod": "AgentPod",
+        "agentset": "AgentSet",
+        "workflow": "Workflow",
+        "toolmount": "ToolMount",
+        "memoryvolume": "MemoryVolume",
+    }
     return Resource(
         api_version="agentmesh.dev/v1alpha1",
-        kind=normalized_kind.capitalize() if normalized_kind != "agentpod" else "AgentPod",
+        kind=kind_name_map[normalized_kind],
         metadata=Metadata(name=name),
         spec=spec,
     )
@@ -103,5 +153,14 @@ def summarize_resource(resource: Resource) -> str:
     elif resource.kind == "Workflow":
         steps = resource.spec.get("steps") or []
         parts.append(f"steps={len(steps)}")
+    elif resource.kind == "AgentSet":
+        replicas = resource.spec.get("replicas") or {}
+        parts.append(f"desired={replicas.get('desired', replicas.get('min', 'unknown'))}")
+        template = resource.spec.get("template") or {}
+        parts.append(f"template={template.get('ref', 'unknown')}")
+    elif resource.kind == "ToolMount":
+        parts.append(f"type={resource.spec.get('type', 'unknown')}")
+    elif resource.kind == "MemoryVolume":
+        parts.append(f"class={resource.spec.get('class', 'unknown')}")
 
     return "  ".join(parts)

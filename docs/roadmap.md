@@ -21,7 +21,11 @@
 - shipped: workflow execution with per-step run records
 - shipped: run history inspection through `get runs`, `describe run`, and `logs run`
 - shipped: workflow reruns through `rerun workflow-run <run-id>`
-- next: explicit DAG edges, checkpoint reruns, richer status conditions, and tracing export
+- shipped: explicit DAG edges through `entrypoint` and `onSuccess`
+- shipped: checkpoint reruns through `rerun workflow-run <run-id> --from-step <name>`
+- shipped: apply-time validation for workflow graphs and `AgentPod` dependency refs
+- shipped: local `AgentSet` apply, describe, and manual scale flows
+- next: richer rollout conditions, trace export, and first executable tool/memory adapters
 
 ## Phase 2: Public alpha
 

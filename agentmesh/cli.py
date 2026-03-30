@@ -25,7 +25,10 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser("version", help="Print the AgentMesh CLI version")
 
     init_parser = subparsers.add_parser("init", help="Create a starter resource spec")
-    init_parser.add_argument("kind", choices=["agentpod", "workflow"])
+    init_parser.add_argument(
+        "kind",
+        choices=["agentpod", "agentset", "workflow", "toolmount", "memoryvolume"],
+    )
     init_parser.add_argument("name")
     init_parser.add_argument(
         "-o",
@@ -52,6 +55,13 @@ def build_parser() -> argparse.ArgumentParser:
         help="Rerun a workflow from a prior workflow run id",
     )
     rerun_workflow_parser.add_argument("run_id")
+    rerun_workflow_parser.add_argument("--from-step", dest="from_step")
+
+    scale_parser = subparsers.add_parser("scale", help="Scale a local resource")
+    scale_subparsers = scale_parser.add_subparsers(dest="scale_kind", required=True)
+    scale_agentset_parser = scale_subparsers.add_parser("agentset", help="Scale an applied AgentSet")
+    scale_agentset_parser.add_argument("name")
+    scale_agentset_parser.add_argument("--replicas", type=int, required=True)
 
     describe_parser = subparsers.add_parser("describe", help="Describe a resource or workflow run")
     describe_parser.add_argument("kind_or_name")
@@ -86,7 +96,11 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     if args.command == "apply":
-        runtime_object = control_plane.apply(load_resource_file(Path(args.file)))
+        try:
+            runtime_object = control_plane.apply(load_resource_file(Path(args.file)))
+        except ValueError as exc:
+            print(f"apply failed: {exc}", file=sys.stderr)
+            return 1
         resource = runtime_object.resource
         print(
             f"applied {resource['kind']}/{resource['metadata']['name']} "
@@ -119,11 +133,21 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "rerun":
         if args.rerun_kind == "workflow-run":
             try:
-                run = control_plane.rerun_workflow(args.run_id)
+                run = control_plane.rerun_workflow(args.run_id, start_step=args.from_step)
             except ValueError as exc:
                 print(f"workflow rerun failed: {exc}", file=sys.stderr)
                 return 1
             print(summarize_workflow_run(run))
+            return 0
+
+    if args.command == "scale":
+        if args.scale_kind == "agentset":
+            try:
+                runtime_object = control_plane.scale_agentset(args.name, args.replicas)
+            except ValueError as exc:
+                print(f"scale failed: {exc}", file=sys.stderr)
+                return 1
+            print(describe_runtime_object(runtime_object))
             return 0
 
     if args.command == "describe":
